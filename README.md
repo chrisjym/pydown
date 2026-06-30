@@ -7,13 +7,13 @@ around two small OOP patterns (Template Method + Strategy).
 
 ## Supported formats
 
-| Format      | Library       | What gets extracted                          |
-| ----------- | ------------- | -------------------------------------------- |
-| PDF         | `pymupdf`     | Text per page, under `## Page N` headers     |
-| DOCX        | `python-docx` | Headings, paragraphs, and tables (in order)  |
-| PPTX        | `python-pptx` | Slide titles, body text, and speaker notes   |
-| XLSX        | `openpyxl`    | Each sheet as a Markdown table               |
-| PNG/JPG/JPEG| `pytesseract` | OCR'd text from the image                    |
+| Format       | Library       | What gets extracted                         |
+| ------------ | ------------- | ------------------------------------------- |
+| PDF          | `pymupdf`     | Text per page, under `## Page N` headers    |
+| DOCX         | `python-docx` | Headings, paragraphs, and tables (in order) |
+| PPTX         | `python-pptx` | Slide titles, body text, and speaker notes  |
+| XLSX         | `openpyxl`    | Each sheet as a Markdown table              |
+| PNG/JPG/JPEG | `pytesseract` | OCR'd text from the image                   |
 
 ## Install
 
@@ -75,3 +75,8 @@ python -m pytest
 
 The image/OCR tests are skipped automatically when the `tesseract` binary isn't
 installed.
+
+cd /Users/cmong/pydown
+source venv/bin/activate
+
+python -c "import pydown; print(pydown.convert('/path/to/your/file.pdf'))"
