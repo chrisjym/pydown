@@ -30,7 +30,7 @@ def test_missing_file_raises_file_not_found(tmp_path):
         DummyConverter().convert(str(missing))
 
 
-def test_wrong_extension_raises_value_error(tmp_path):
+def test_wrong_extension_raises_value_error(tmp_path): # Not allowed extension type since it only accepts .txt
     f = tmp_path / "note.pdf"
     f.write_text("hello")
     with pytest.raises(ValueError):
