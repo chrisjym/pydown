@@ -76,7 +76,36 @@ python -m pytest
 The image/OCR tests are skipped automatically when the `tesseract` binary isn't
 installed.
 
-cd /Users/cmong/pydown
-source venv/bin/activate
+## Web app
 
-python -c "import pydown; print(pydown.convert('/path/to/your/file.pdf'))"
+A drag-and-drop web frontend wraps the library: drop a file, a `.md` downloads.
+
+```bash
+source venv/bin/activate
+python -m pydown.web.app
+```
+
+Then open <http://127.0.0.1:5050>. (It runs on 5050 because macOS's AirPlay
+Receiver occupies port 5000. Override with `PORT=8080 python -m pydown.web.app`.)
+
+## Deploy (public website)
+
+The app is containerized so it can run anywhere — including image OCR, which needs
+the `tesseract` system binary baked into the image (this is why a plain serverless
+host like Vercel won't work). Build and run it locally with Docker:
+
+```bash
+docker build -t pydown .
+docker run --rm -p 8080:8080 -e PORT=8080 pydown
+# → http://localhost:8080
+```
+
+To put it online, deploy the same `Dockerfile` to any container host:
+
+- **Render** — push this repo to GitHub, then *New → Web Service → Build from a
+  Dockerfile*. Render supplies `$PORT` and serves it at `https://<name>.onrender.com`.
+- **Fly.io / Railway** — deploy the identical `Dockerfile` (Fly does it from your
+  machine via `flyctl launch` / `flyctl deploy`, no GitHub required).
+
+Uploads are capped at 25 MB (`MAX_CONTENT_LENGTH` in
+[pydown/web/app.py](pydown/web/app.py)).

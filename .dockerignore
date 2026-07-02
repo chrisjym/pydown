@@ -1,0 +1,18 @@
+# Never copy the local virtualenv into the image — it's huge and platform-specific.
+venv/
+
+# Not needed at runtime.
+tests/
+sample_files/
+
+# Python caches / build artifacts.
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+*.egg-info/
+
+# VCS and local tooling.
+.git/
+.gitignore
+.DS_Store
